@@ -20,11 +20,14 @@ class HomeActivity : BaseActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                val moviesWithGenres = it.results.map { movie ->
-                    movie.copy(genres = Cache.genres.filter { movie.genreIds?.contains(it.id) == true })
+                val moviesWithGenres = it.results.map {
+                    movie -> movie.copy(genres = Cache.genres.filter {
+                        genre -> movie.genreIds?.contains(genre.id) == true
+                    })
                 }
                 recyclerView.adapter = HomeAdapter(moviesWithGenres)
                 progressBar.visibility = View.GONE
+
             }
     }
 }
