@@ -19,8 +19,13 @@ class DetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_activity)
 
-        val movie = intent.extras.getSerializable("movie_info") as Movie
+        val movie = intent.extras?.getSerializable("movie_info") as Movie
         setupMovieDetails(movie)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     private fun setupMovieDetails(movie: Movie) {
@@ -35,12 +40,7 @@ class DetailActivity: AppCompatActivity() {
         detailReleaseDateTextView.text = movie.releaseDate
 
         Glide.with(backDropPathImageView)
-                .load(movie.backdropPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
+                .load(movie.backdropPath?.let { movieImageUrlBuilder.buildBackdropUrl(it) })
                 .into(backDropPathImageView)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 }
