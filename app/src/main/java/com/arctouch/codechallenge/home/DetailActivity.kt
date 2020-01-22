@@ -1,7 +1,6 @@
 package com.arctouch.codechallenge.home
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.arctouch.codechallenge.R
 import com.arctouch.codechallenge.model.Movie
@@ -9,7 +8,6 @@ import com.arctouch.codechallenge.util.MovieImageUrlBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.detail_activity.*
-import kotlinx.android.synthetic.main.movie_item.view.*
 
 class DetailActivity: AppCompatActivity() {
 
@@ -20,7 +18,7 @@ class DetailActivity: AppCompatActivity() {
         setContentView(R.layout.detail_activity)
 
         val movie = intent.extras?.getSerializable("movie_info") as Movie
-        setupMovieDetails(movie)
+        configureMovieDetails(movie)
     }
 
     override fun onBackPressed() {
@@ -28,7 +26,7 @@ class DetailActivity: AppCompatActivity() {
         finish()
     }
 
-    private fun setupMovieDetails(movie: Movie) {
+    private fun configureMovieDetails(movie: Movie) {
         Glide.with(detailPosterImageView)
                 .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
                 .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
