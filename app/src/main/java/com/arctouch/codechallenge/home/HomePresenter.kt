@@ -6,8 +6,11 @@ import com.arctouch.codechallenge.api.TmdbApi
 import com.arctouch.codechallenge.data.Cache
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class HomePresenter(private val view: HomeActivity) {
+class HomePresenter(){
+
+    lateinit var view: HomeActivity
 
     fun getUpcomingMovies() {
         ApiClient.getService().upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, 1, TmdbApi.DEFAULT_REGION)

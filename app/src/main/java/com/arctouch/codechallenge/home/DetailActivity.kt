@@ -27,18 +27,26 @@ class DetailActivity: AppCompatActivity() {
     }
 
     private fun configureMovieDetails(movie: Movie) {
-        Glide.with(detailPosterImageView)
-                .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
-                .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-                .into(detailPosterImageView)
+        loadMoviePoster(movie)
 
         detailTitleTextView.text = movie.title
         detailOverviewTextView.text = movie.overview
         detailGenresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name }
         detailReleaseDateTextView.text = movie.releaseDate
 
+        loadBackdropImage(movie)
+    }
+
+    private fun loadBackdropImage(movie: Movie) {
         Glide.with(backDropPathImageView)
                 .load(movie.backdropPath?.let { movieImageUrlBuilder.buildBackdropUrl(it) })
                 .into(backDropPathImageView)
+    }
+
+    private fun loadMoviePoster(movie: Movie) {
+        Glide.with(detailPosterImageView)
+                .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
+                .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+                .into(detailPosterImageView)
     }
 }

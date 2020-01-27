@@ -4,12 +4,14 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.arctouch.codechallenge"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -18,6 +20,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }
@@ -40,7 +48,20 @@ dependencies {
     //add paging library
     implementation 'androidx.paging:paging-runtime:2.1.1'
 
+    //Architecture Components
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
+
+    //Dagger
+    implementation 'com.google.dagger:dagger:2.25.4'
+    implementation 'com.google.dagger:dagger-android-support:2.24'
+    kapt 'com.google.dagger:dagger-compiler:2.24'
+    kapt 'com.google.dagger:dagger-android-processor:2.24'
+
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:2.25.0"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation "org.robolectric:robolectric:4.3.1"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

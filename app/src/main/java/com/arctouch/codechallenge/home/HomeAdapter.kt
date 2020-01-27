@@ -25,16 +25,22 @@ class HomeAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<HomeAd
             itemView.titleTextView.text = movie.title
             itemView.genresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name }
             itemView.releaseDateTextView.text = movie.releaseDate
-            itemView.setOnClickListener {
-                val detailActivity = Intent(context, DetailActivity::class.java)
-                detailActivity.putExtra("movie_info", movie as Serializable)
-                context.startActivity(detailActivity)
-            }
+            itemView.setOnClickListener{ showMovieDetails(movie) }
 
+            loadMoviePoster(movie)
+        }
+
+        private fun loadMoviePoster(movie: Movie) {
             Glide.with(itemView)
-                .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
-                .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-                .into(itemView.posterImageView)
+                    .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
+                    .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+                    .into(itemView.posterImageView)
+        }
+
+        private fun showMovieDetails(movie: Movie) {
+            val detailActivity = Intent(context, DetailActivity::class.java)
+            detailActivity.putExtra("movie_info", movie as Serializable)
+            context.startActivity(detailActivity)
         }
     }
 
